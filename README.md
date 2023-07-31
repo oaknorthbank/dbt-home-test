@@ -1,7 +1,7 @@
 # OakNorth DBT Home Test
 
 ## The challenge
-As part of the application process, we would like you to complete a take-home exercise to demonstrate your proficiency in DBT (Data Build Tool) and your analytical skills. This exercise is designed to assess your ability to work with data transformations and modeling using DBT, a tool that is widely used in our organisation for data analytics.
+As part of the application process, we would like you to complete a take-home exercise to demonstrate your proficiency in DBT (Data Build Tool) and your analytical skills. This exercise is designed to assess your ability to work on data transformations and modelling using DBT, a tool that is widely used in our organisation for data analytics.
 
 ## Scenario
 You are provided with two seeds: "transactions" and "customers." The seeds contain sample data from our banking system. The "transactions" seed contains information about financial transactions, and the "customers" seed contains information about the bank's customers. Your task is to use DBT to fulfill the following criteria:
