@@ -8,8 +8,8 @@ You are provided with two seeds: "transactions" and "customers." The seeds conta
 
 - Create a model that consolidates relevant customer information with their transactions:
     - total transactions made by each customer
-    - their avarage spent
-    - their average transaction frequency
+    - their average monthly spending
+    - the average transaction interval, representing the average number of days it takes for the customer to perform a transaction
 - Create a model that calculates the total transaction amount for each month over the last 12 months
     - calculate the percentage change in transaction totals from one month to the next
     - calculate the top customer for each month by selecting the customer with the highest spending
