@@ -1,4 +1,4 @@
-customer_id,name,data_of_birth,joined_date
+customer_id,name,date_of_birth,joined_date
 CUST_001,John Doe,1985-03-15,2020-06-25
 CUST_002,Jane Smith,1990-11-20,2019-12-10
 CUST_003,Michael Johnson,1978-07-08,2022-02-14
