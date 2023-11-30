@@ -1,0 +1,75 @@
+
+version: 2
+
+models:
+  - name: stg_seeds__customers
+    description: "Customer specific data taken from seeds and renamed/type casted"
+    columns:
+      - name: customer_hash
+        description: "The hashed primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "The primary key for this table from the source"
+        tests:
+          - unique
+          - not_null
+      - name: customer_full_name
+        description: "The customer's full name"
+        tests:
+          - not_null
+      - name: customer_date_of_birth
+        description: "The customer's date of birth"
+        tests:
+          - not_null
+      - name: customer_joined_date
+        description: "The date the customer joined"
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_seeds__transactions
+    description: "Transaction specific data taken from seeds and renamed/type casted"
+    columns:
+      - name: transaction_hash
+        description: "The hashed primary key for this table"
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null
+      - name: transaction_id
+        description: "The primary key for this table"
+      - name: customer_hash
+        description: "The foreign hash key to connect to customers"
+        tests:
+          - not_null:
+              config:
+                severity: warn
+          - relationships:
+              to: ref('stg_seeds__customers')
+              field: customer_hash
+              config:
+                severity: warn
+      - name: customer_id
+        description: "The foreign key to connect to customers from the source"
+      - name: transaction_date_raw
+        description: "The transaction date before casting including bad data"
+      - name: transaction_date
+        description: "The transaction date with nulled bad data"
+        tests:
+          - not_null:
+              config:
+                severity: warn
+          - date_not_in_future:
+              config:
+                severity: warn
+      - name: transaction_amount
+        description: "The amount of the transaction"
+        tests:
+          - not_null
+
+
+
