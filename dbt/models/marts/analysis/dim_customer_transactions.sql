@@ -37,7 +37,7 @@ SELECT
     , ctrx.total_transaction_amount
 -- their average monthly spending
     , (ctrx.total_transaction_amount/ctrx.count_distinct_transaction_months) AS customer_average_monthly_transaction_amount
--- the average customer spending interval
+-- the average customer spending interval (per customer)
     , ctd.duration_customer_join_to_transaction_days
 -- average calculated over the entire customer dataset
     , AVG(ctd.duration_customer_join_to_transaction_days) OVER () AS mean_duration_customer_join_to_transaction_days

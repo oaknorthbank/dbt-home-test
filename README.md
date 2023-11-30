@@ -34,13 +34,13 @@ Please follow the guidelines below:
 - You may of course use any resources you like to assist you with specific techniques, syntax etc - but please do not just copy code.
 - Please don't share this exercise with anyone else :)
 
-## How to Run the dbt project
+## How to run the dbt project solution
 
 Run the following commands to create the project and run the models:
 
-dbt init
-dbt clean
-dbt deps
-dbt compile 
-dbt run 
-dbt test
+- dbt init
+- dbt clean
+- dbt deps
+- dbt compile 
+- dbt run 
+- dbt test
