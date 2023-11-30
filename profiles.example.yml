@@ -1,0 +1,11 @@
+dbt_home_test:
+  target: dev
+  outputs:
+    dev:
+      type: type (postgres/duckdb/etc)
+      host: host
+      user: user
+      password: password
+      port: port
+      dbname: db_name
+      schema: schema
