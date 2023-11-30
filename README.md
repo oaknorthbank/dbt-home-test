@@ -10,6 +10,7 @@ You are provided with two seeds: "transactions" and "customers." The seeds conta
     - total transactions made by each customer
     - their average monthly spending
     - the average customer spending interval, representing the average number of days it takes for the customer to perform a transaction
+
 - Create a model that calculates the total transaction amount for each month over the last 12 months
     - calculate the percentage change in transaction totals from one month to the next
     - calculate the top customer for each month by selecting the customer with the highest spending
@@ -32,3 +33,14 @@ Please follow the guidelines below:
 - Please do not use external DBT packages
 - You may of course use any resources you like to assist you with specific techniques, syntax etc - but please do not just copy code.
 - Please don't share this exercise with anyone else :)
+
+## How to Run the dbt project
+
+Run the following commands to create the project and run the models:
+
+dbt init
+dbt clean
+dbt deps
+dbt compile 
+dbt run 
+dbt test

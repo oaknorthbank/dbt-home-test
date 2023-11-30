@@ -1,0 +1,54 @@
+version: 2
+
+seeds:
+
+- name: stg_customers
+  description: 
+  columns:
+    - name: customer_id
+      description: The unique identifier of a customer.
+      tests:
+        - unique
+        - not_null
+    - name: customer_name
+      description: The name of a customer.
+      meta:
+        contains_pii: true
+      tests:
+        - not_null
+    - name: customer_date_of_birth
+      description: The date a customer was born.
+      meta:
+        contains_pii: true
+      tests:
+        - not_null
+    - name: customer_joined_date
+      description: The date a customer first created an account.
+      tests:
+        - not_null
+
+- name: stg_transactions
+  description: 
+  columns:
+      - name: transaction_id
+      description: The unique identifier of a transaction.
+      tests:
+        - not_null
+        - unique
+    - name: customer_id
+      description: The unique identifier of a customer.
+      tests:
+        - unique
+        - not_null
+        - relationships:
+          severity: warn
+          to: ref('stg_customers')
+          field: customer_id
+    - name: transaction_date
+      description: The date of the transaction.
+      tests:
+        - not_null
+    - name: transaction_amount
+      description: The amount of the transaction in original currency.
+      tests:
+        - not_null

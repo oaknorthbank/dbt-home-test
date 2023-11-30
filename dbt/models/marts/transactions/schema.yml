@@ -1,0 +1,29 @@
+version: 2
+
+models:
+
+- name: fct_transactions
+  description: 
+  columns:
+      - name: transaction_id
+      description: The unique identifier of a transaction.
+      tests:
+        - not_null
+        - unique
+    - name: customer_id
+      description: The unique identifier of a customer.
+      tests:
+        - unique
+        - not_null
+        - relationships:
+          severity: warn
+          to: ref('dim_customer_transactions')
+          field: customer_id
+    - name: transaction_date
+      description: The date of the transaction.
+      tests:
+        - not_null
+    - name: transaction_amount
+      description: The amount of the transaction in original currency.
+      tests:
+        - not_null
