@@ -1,0 +1,50 @@
+
+version: 2
+
+models:
+  - name: customers_summary
+    description: "A customer model with additional transaction summary information"
+    columns:
+      - name: customer_hash
+        description: "The hashed primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: customer_full_name
+        description: Full name of the customer
+      - name: customer_joined_date
+        description: Date the customer joined
+      - name: transactions_total_count
+        description: "The total number of transactions a customer has made"
+      - name: transactions_interval_days_avg
+        description: "The average interval of days between transactions.\n
+          See the documentation for 'int_transactions_pivoted_to_customers' for a full summary of assumptions"
+      - name: transactions_full_month_amount_avg
+        description: "The average amount a customer transacts in a 'full' month. Note:\n\n
+          This is only calculated for full months (where we have a full months worth of transaction data)
+          because otherwise we would skew the average down if we included partial months as we would not
+          give enough time for the customer to complete all their transactions.\n
+          Also instead of trying to project for partial months we are conservative and just use full months"
+
+  - name: transactions_month_summary
+    description: "A model providing a month by month transactions summary for the last 12 months"
+    columns:
+      - name: month_trunc
+        description: "The truncated month in question"
+        tests:
+          - unique
+          - not_null
+      - name: is_full_month
+        description: "A boolean to know if we have the full month's data for transactions.\n
+          This is important to read in conjuction with the data. For example 'transaction_amount_total'
+          and 'transaction_total_percentage_change' can be misleading for a partial month"
+      - name: transaction_amount_total
+        description: The total amount transacted for the month in question
+      - name: transaction_total_percentage_change
+        description: "The percentage change in total transactions amount compared to the previous month.
+          0 would be exactly the same as last month. Positive is growth from last month, and negative
+          is when the amount is smaller than last month. Notes:\n\n
+          We are only computing for months where we have a previous month of data. Instead of assuming zero
+          for other months we are leaving them as null to show we have no data"
+      - name: top_customer_hash_by_transaction_total_desc
+        description: "The customer_hash for the customer who transacted the most (by amount) for the month in question"
