@@ -27,3 +27,5 @@ models:
   dbt_home_test:
     staging:
       +materialized: view
+    intermediate:
+      +materialized: view

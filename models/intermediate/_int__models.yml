@@ -1,0 +1,69 @@
+
+version: 2
+
+models:
+  - name: int_transactions_cleaned
+    description: "Transactions cleaned of bad data such as missing keys, bad dates, duplicates"
+    columns:
+      - name: transaction_hash
+        description: "The hashed primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: customer_hash
+        description: "The foreign hash key to connect to customers"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_seeds__customers')
+              field: customer_hash
+      - name: transaction_date
+        description: "The transaction date of the transaction"
+        tests:
+          - not_null
+          - date_not_in_future
+      - name: transaction_amount
+        description: "The amount of the transaction"
+        tests:
+          - not_null
+
+  - name: int_transactions_pivoted_to_customers
+    description: "Pivoting cleaned transactions to customers to give the customer level grain on transactions"
+    columns:
+      - name: customer_hash
+        description: The customer primary key hashed
+        tests:
+          - unique
+          - not_null
+      - name: transactions_total_count
+        description: The total number of transactions a customer has made 
+      - name: transactions_interval_days_avg
+        description: "The interval in days between customer transactions. Some assumptions were made:\n\n
+          1) Ignoring the join date as a potential interval start for the first transaction,
+          because the join dates for most users was a long way before the first transaction,
+          so it would skew results. I have implicitly assumed we do not have all of the transaction
+          data for users in months before July 2023 and that those were not their first transactions ever.\n\n
+          2) Also ignoring the 'negative data' that every day up to the current date that
+          the customer does not perform a transaction, the average should get larger.
+          this is because I have no guarantees on the data that I can extrapolate to the current date correctly"
+
+  - name: int_transactions_pivoted_to_customers_months
+    description: "Pivoting cleaned transactions to customers and months to give the customer_month level grain on transactions"
+    columns:
+      - name: customer_hash
+        description: The customer primary key hashed
+        tests:
+          - not_null
+      - name: transaction_month_trunc
+        description: The truncated month in question, brings the grain to a month level whilst still using a date type field
+        tests:
+          - not_null
+      - name: customer_transaction_total_desc_rank
+        description: "The rank within a month of which customer has made the most transactions by amount there are some notes:\n
+          - Using row number instead of rank to break ties. There does not seem to be a good tie breaker value so currently the
+          tie break will be arbitrary and non deterministic, it would be better to understand how to tie break if two customers
+          both spent exactly the same amount in a month and were also both top spenders"
+      - name: is_full_month
+        description: "Boolean to let us know if - for the month in question - we have a full month of transaction data.\n
+        We need to know if we have a full months worth of transaction data or not,
+        because some metrics are not valid on partial months"
