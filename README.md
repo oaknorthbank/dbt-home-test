@@ -1,5 +1,30 @@
 # OakNorth DBT Home Test
 
+## Setup
+
+### Copy the example profiles.yml and modify for your particular system
+```bash
+cp profiles.example.yml profiles.yml
+```
+Change the variables within profiles.yml to match your system
+
+### A full run
+```bash
+dbt seed
+dbt run
+dbt test
+```
+I have used DBT cross platform macros for flavoured SQL so hopefully it will 'just work'. Apologies if I missed any.
+
+### Generating documentation
+DBT documentation can be set up with
+```bash
+dbt docs generate
+dbt docs serve
+```
+This will generate the docs and serve them NB:Not secure on production, only for local servers
+Most of my communication of my thinking is in these docs so this might be the easiest way to check out the system
+
 ## The challenge
 As part of the application process, we would like you to complete a take-home exercise to demonstrate your proficiency in DBT (Data Build Tool) and your analytical skills. This exercise is designed to assess your ability to work on data transformations and modelling using DBT, a tool that is widely used in our organisation for data analytics.
 
