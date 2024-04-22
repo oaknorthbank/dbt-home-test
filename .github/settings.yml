@@ -1,5 +1,5 @@
 repository:
   # See https://docs.github.com/en/rest/reference/repos#update-a-repository for all available settings.
   name: dbt-home-test
-  description: "OakNorth DBT Home Test"
-  topics: "squad::Data Platform, mission::Platform, product::Platform, environment::Pre-Production"
+  description: OakNorth DBT Home Test
+  topics: squad-data-platform, mission-platform, product-platform, environment-pre-production
